@@ -11,26 +11,29 @@ app.use(express.static(__dirname+'/public'));
 app.get('/', function(req, res){
   res.sendFile(path.join(__dirname + '/public/index.html'));
 });
+app.get('/awaiting', function(req, res){
+  res.sendFile(path.join(__dirname + '/public/awaitingEvents.html'));
+});
+app.get('/earlier', function(req, res){
+  res.sendFile(path.join(__dirname + '/public/pastEvents.html'));
+});
 app.get('/about', function(req, res){
   res.sendFile(path.join(__dirname + '/public/about.html'));
 });
-app.get('/videoes', function(req, res){
-  res.sendFile(path.join(__dirname + '/public/videoes.html'));
-});
-app.get('/pictures', function(req, res){
-  res.sendFile(path.join(__dirname + '/public/pictures.html'));
+app.get('/otherthings', function(req, res){
+  res.sendFile(path.join(__dirname + '/public/otherthings.html'));
 });
 var server = app.listen(3000, () => {
   console.log('Server is running on PORT:',3000);
 });
-var io = socket(server);
+/*var io = socket(server);
 io.on('connection', function(socket){
   console.log('Opened a connection');
 
   socket.on('message', function(data){
     /*for(var c=0;c<io.clients.length;c++) {
       io.clients[c].send(message);
-    }*/
+    }
     console.log('onMessage');
     io.sockets.emit('message', data+"Hei");
   });
@@ -50,21 +53,19 @@ io.on('connection', function(socket){
   socket.on('error', (error) => {
     console.error("Error: "+error.message);
   });*/
-});
+//});
 
-/*app.ws('/videoes', function(ws, req) {
-  var server = http.createServer(app);
-  var ws_server = new ws.Server({port: 3001});
-
-});
-//
-
-
-/*app.post('/videoes-add', (req, res) => {
+app.post('/videoes-add', (req, res) => {
   console.log(addVideo(req));
-  res.redirect('/videoes');
-});*/
-
+  res.send('<p>'+req.body.url+'</p>');
+  //res.redirect('/otherthings');
+});
+function sendvideo(url){
+  var a1 = document.createElement("P");
+  var d1 = document.createTextNode(melding);
+  a1.appendChild(d1);
+  return a1;
+}
 
 function addVideo(req){
   var inputurl = req.body.url;
@@ -74,19 +75,3 @@ function addVideo(req){
   var newurl = three[0]+"//"+three[1]+three[2]+"/embed/"+three[3];
   return newurl;
 }
-/*http.createServer(function (req, res) {
-  //var q = url.parse(req.url, true);
-  var filename = "." + req.url;
-  if (filename == './') {
-        filename = './index.html';
-    }
-  fs.readFile(filename, function(err, data) {
-    if (err) {
-      res.writeHead(404, {'Content-Type': 'text/html'});
-      return res.end("404 Not Found");
-    }
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.write(data);
-    return res.end();
-  });
-}).listen(8080);*/
