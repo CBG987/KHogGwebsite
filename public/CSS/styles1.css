@@ -8,68 +8,92 @@ h1 {
   font-size: 48px;
   color: #0000FF;
 }
-ul {
-  list-style-type: none;
-  /*margin-top: 0px;
-  padding: 0px;
-  overflow: hidden;*/
-}
-li {
-  display: inline;
-  /*overflow: left;*/
-}
-li a {
+
+
+.item3 a {
   color: #FFFFFF;
   text-align: center;
   padding: 5px 5px;
   text-decoration: none;
   font-size: 24px;
+  appearance: button;
 }
 #logo {
-  width: 600%;
-  height: 600%;
+  width: 5%;
+  height: 10%;
 }
-#main a:hover {
+.item1 a:hover {
   background-color: #808080;
 }
-li a:hover {
+.item3 a:hover {
   background-color: #111;
 }
 
 .container {
 
 }
-.grid-container {
-  display: grid;
-  background-color: #808080;
-  /*max-height: 25%;
-  min-height: 100px;
-  flex: 1;*/
-  grid-column-gap: 0px;
-  grid-template-areas: 'MyArea1 MyArea2' 'MyArea1 MyArea3';
-
-}
-.item1 {
-  grid-area: MyArea1;
-  grid-column: 1/ span 1;
-  grid-row: 1/ span 2;
-  width: 20px;
-  height: 20px;
-  padding-left: 0;
-}
-.item2 {
-  grid-area: MyArea2;
-  grid-column: 2/ span 10;
-  grid-row: 1/ span 1;
-  padding-left: 5;
-}
-.item3 {
-  grid-area: MyArea3;
-  grid-column: 2/ span 10;
-  grid-row: 2/ span 1;
-  padding-left: 5;
-}
 .main {
   padding-left: 20px;
   padding-right: 20px;
+  text-align: center;
 }
+.videoer {
+  text-align: left;
+}
+
+/*Grid*/
+.grid-container {
+  display: grid;
+  background-color: #808080;
+  grid-column-gap: 0px;
+  grid-template-areas: 'MyArea1' 'MyArea2' 'MyArea3';
+}
+.item1 {
+  grid-area: MyArea1;
+  padding-left: 0;
+  text-align: center;
+}
+.item2 {
+  grid-area: MyArea2;
+  padding-left: 5px;
+  text-align: center;
+}
+.item3 {
+  align-self: auto;
+  grid-area: MyArea3;
+  text-align: center;
+}
+.dropbtn {
+  background-color: #808080;
+  color: white;
+  padding: 10px;
+  font-size: 24px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f5f5f5;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #cccccc;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #111;}

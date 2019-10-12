@@ -10,18 +10,31 @@
   <body>
     <div class="container">
       <div class="grid-container">
-        <ul class="item1">
-          <li id="main"><a href="/"><picture><img id="logo" src="bilder/logopng.png"></picture></a></li>
-        </ul>
-        <ul class="item2">
+        <div class="item1">
+          <a id="main" href="/"><picture><img id="logo" src="bilder/logopng.png"></picture></a>
+        </div>
+        <div class="item2">
           <h2>Kvål Hinder og Galskap</h2>
-        </ul>
-        <ul class="item3">
-          <li><a href="/awaiting">Kommende løp</a></li>
-          <li><a href="/earlier">Tidligere løp</a></li>
-          <li><a href="/about">Komiteen</a></li>
-          <li><a href="/otherthings">Andre ting</a></li>
-        </ul>
+        </div>
+        <div class="item3">
+          <div class="dropdown"><button class="dropbtn"><a href="/">Hjem</a></button></div>
+          <div class="dropdown"><button class="dropbtn"><a href="/awaiting">Kommende løp</a></button></div>
+          <div class="dropdown">
+            <button class="dropbtn">Tidligere løp</button>
+            <div class="dropdown-content">
+              <a href="/vol1">Vol. 1</a>
+              <a href="/vol2">Vol. 2</a>
+            </div>
+          </div>
+          <div class="dropdown"><button class="dropbtn"><a href="/about">Komiteen</a></button></div>
+          <div class="dropdown">
+            <button class="dropbtn">Galleri</button>
+            <div class="dropdown-content">
+              <a href="/pictures">Bilder</a>
+              <a href="/videoer">Videoer</a>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="main">
         <h1>Kommende arrangement</h1>

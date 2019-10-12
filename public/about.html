@@ -3,34 +3,91 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="CSS/styles1.css">
+    <link rel="stylesheet" type="text/css" href="CSS/stylesAbout.css">
     <script type = "text/javascript" src = "Javascript/indexscript.js" ></script>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <title>Kvål Hinder og Galskap</title>
   </head>
   <body>
+    <script type="text/javascript" src="Javascript/aboutscript.js"></script>
     <div class="container">
       <div class="grid-container">
-        <ul class="item1">
-          <li id="main"><a href="/"><picture><img id="logo" src="bilder/logopng.png"></picture></a></li>
-        </ul>
-        <ul class="item2">
+        <div class="item1">
+          <a id="main" href="/"><picture><img id="logo" src="bilder/logopng.png"></picture></a>
+        </div>
+        <div class="item2">
           <h2>Kvål Hinder og Galskap</h2>
-        </ul>
-        <ul class="item3">
-          <li><a href="/awaiting">Kommende løp</a></li>
-          <li><a href="/earlier">Tidligere løp</a></li>
-          <li><a href="/about">Komiteen</a></li>
-          <li><a href="/otherthings">Andre ting</a></li>
-        </ul>
+        </div>
+        <div class="item3">
+          <div class="dropdown"><button class="dropbtn"><a href="/">Hjem</a></button></div>
+          <div class="dropdown"><button class="dropbtn"><a href="/awaiting">Kommende løp</a></button></div>
+          <div class="dropdown">
+            <button class="dropbtn">Tidligere løp</button>
+            <div class="dropdown-content">
+              <a href="/vol1">Vol. 1</a>
+              <a href="/vol2">Vol. 2</a>
+            </div>
+          </div>
+          <div class="dropdown"><button class="dropbtn"><a href="/about">Komiteen</a></button></div>
+          <div class="dropdown">
+            <button class="dropbtn">Galleri</button>
+            <div class="dropdown-content">
+              <a href="/pictures">Bilder</a>
+              <a href="/videoer">Videoer</a>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="main">
         <h1>Vi i Komiteen</h1>
         <h3>Bjørn Inge Storli</h3>
+        <div class="one" id="blinge">
+          <img class="imag" id="imgB" src="bilder/blinge.jpg">
+          <div class="name" id="nameB">Navn: </div>
+          <div class="birthdate" id="birthdateB">Birthdate: </div>
+          <div class="address" id="addressB">Adresse: </div>
+          <div class="about" id="aboutB">Om: </div>
+        </div>
         <h3>Christian Gravseth</h3>
+        <div class="two" id="christian">
+          <img class="imag" id="imgC" src="bilder/christian.jpg">
+          <div class="name" id="nameC">Navn: </div>
+          <div class="birthdate" id="birthdateC">Birthdate: </div>
+          <div class="address" id="addressC">Adresse: </div>
+          <div class="about" id="aboutC">Om: </div>
+        </div>
         <h3>Veronica Gussiås Aune</h3>
+        <div class="three" id="veronica">
+          <img class="imag" id="imgV" src="">
+          <div class="name" id="nameV"></div>
+          <div class="birthdate" id="birthdateV"></div>
+          <div class="address" id="addressV"></div>
+          <div class="about" id="aboutV"></div>
+        </div>
         <h3>Siw Myrdal Berg</h3>
+        <div class="four" id="siw">
+          <img class="imag" id="imgSiw" src="">
+          <div class="name" id="nameSiw"></div>
+          <div class="birthdate" id="birthdateSiw"></div>
+          <div class="address" id="addressSiw"></div>
+          <div class="about" id="aboutSiw"></div>
+        </div>
         <h3>Steffen Schanke</h3>
+        <div class="five" id="steffen">
+          <img class="imag" id="imgS" src="">
+          <div class="name" id="nameS"></div>
+          <div class="birthdate" id="birthdateS"></div>
+          <div class="address" id="addressS"></div>
+          <div class="about" id="aboutS"></div>
+        </div>
         <h3>Petter Bendik Kynnø</h3>
+        <div class="six" id="petter">
+          <img class="imag" id="imgP" src="">
+          <div class="name" id="nameP"></div>
+          <div class="birthdate" id="birthdateP"></div>
+          <div class="address" id="addressP"></div>
+          <div class="about" id="aboutP"></div>
+        </div>
       </div>
     </div>
   </body>
