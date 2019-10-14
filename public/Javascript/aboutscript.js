@@ -1,41 +1,16 @@
 $(document).ready(() => {
-  //var christiandiv = document.getElementById('christian');
-  //var blingediv = document.getElementById('blinge');
-
-  var imgC = document.getElementById('imgC');
-  var imgB = document.getElementById('imgB');
-  var imgV = document.getElementById('imgV');
-  var imgSiw = document.getElementById('imgSiw');
-  var imgS = document.getElementById('imgS');
-  var imgP = document.getElementById('imgP');
-
-  var nameC = document.getElementById('nameC');
-  var nameB = document.getElementById('nameB');
-  var nameV = document.getElementById('nameV');
-  var nameSiw = document.getElementById('nameSiw');
-  var nameS = document.getElementById('nameS');
-  var nameP = document.getElementById('nameP');
-
-  var birthdateC = document.getElementById('birthdateC');
-  var birthdateB = document.getElementById('birthdateB');
-  var birthdateV = document.getElementById('birthdateV');
-  var birthdateSiw = document.getElementById('birthdateSiw');
-  var birthdateS = document.getElementById('birthdateS');
-  var birthdateP = document.getElementById('birthdateP');
-
-  var addressC = document.getElementById('addressC');
-  var addressB = document.getElementById('addressB');
-  var addressV = document.getElementById('addressV');
-  var addressSiw = document.getElementById('addressSiw');
-  var addressS = document.getElementById('addressS');
-  var addressP = document.getElementById('addressP');
-
-  var aboutC = document.getElementById('aboutC');
-  var aboutB = document.getElementById('aboutB');
-  var aboutV = document.getElementById('aboutV');
-  var aboutSiw = document.getElementById('aboutSiw');
-  var aboutS = document.getElementById('aboutS');
-  var aboutP = document.getElementById('aboutP');
+  var img1 = document.createElement('img');
+  img1.style.width = "200px"; img1.style.height = "200px";
+  var img2 = document.createElement('img');
+  img2.style.width = "200px"; img2.style.height = "200px";
+  var img3 = document.createElement('img');
+  img3.style.width = "200px"; img3.style.height = "200px";
+  var img4 = document.createElement('img');
+  img4.style.width = "200px"; img4.style.height = "200px";
+  var img5 = document.createElement('img');
+  img5.style.width = "200px"; img5.style.height = "200px";
+  var img6 = document.createElement('img');
+  img6.style.width = "200px"; img6.style.height = "200px";
 
   $.ajax({
     url: 'about',
@@ -43,17 +18,51 @@ $(document).ready(() => {
     dataType: 'json',
     success: (data) => {
       console.log(data);
-      nameC.appendChild(document.createTextNode(data.Christian.name));
-      nameB.appendChild(document.createTextNode(data.Blinge.name));
+      console.log(data.Christian.imag);
 
-      birthdateC.appendChild(document.createTextNode(data.Christian.birthdate));
-      birthdateB.appendChild(document.createTextNode(data.Blinge.birthdate));
+      img1.src = '../bilder/christian.jpg'; $('#imgC').append(img1);
+      img2.src = '../bilder/blinge.jpg'; $('#imgB').append(img2);
+      img3.src = '../bilder/veronica.jpg'; $('#imgV').append(img3);
+      img4.src = '../bilder/siw.jpg'; $('#imgSiw').append(img4);
+      img5.src = '../bilder/steffen.jpg'; $('#imgS').append(img5);
+      img6.src = '../bilder/petter.jpg'; $('#imgP').append(img6);
 
-      addressC.appendChild(document.createTextNode(data.Christian.address));
-      addressB.appendChild(document.createTextNode(data.Blinge.address));
+      $('#nameC').append(document.createTextNode(data.Christian.name));
+      $('#nameB').append(document.createTextNode(data.Blinge.name));
+      $('#nameV').append(document.createTextNode(data.Veronica.name));
+      $('#nameSiw').append(document.createTextNode(data.Siw.name));
+      $('#nameS').append(document.createTextNode(data.Steffen.name));
+      $('#nameP').append(document.createTextNode(data.Petter.name));
 
-      aboutC.appendChild(document.createTextNode(data.Christian.about));
-      aboutB.appendChild(document.createTextNode(data.Blinge.about));
+      $('#birthdateC').append(document.createTextNode(date(data.Christian.birthdate)));
+      $('#birthdateB').append(document.createTextNode(date(data.Blinge.birthdate)));
+      $('#birthdateV').append(document.createTextNode(date(data.Veronica.birthdate)));
+      $('#birthdateSiw').append(document.createTextNode(date(data.Siw.birthdate)));
+      $('#birthdateS').append(document.createTextNode(date(data.Steffen.birthdate)));
+      $('#birthdateP').append(document.createTextNode(date(data.Petter.birthdate)));
+
+      $('#addressC').append(document.createTextNode(data.Christian.address));
+      $('#addressB').append(document.createTextNode(data.Blinge.address));
+      $('#addressV').append(document.createTextNode(data.Veronica.address));
+      $('#addressSiw').append(document.createTextNode(data.Siw.address));
+      $('#addressS').append(document.createTextNode(data.Steffen.address));
+      $('#addressP').append(document.createTextNode(data.Petter.address));
+
+      $('#aboutC').append(document.createTextNode(data.Christian.about));
+      $('#aboutB').append(document.createTextNode(data.Blinge.about));
+      $('#aboutV').append(document.createTextNode(data.Veronica.about));
+      $('#aboutSiw').append(document.createTextNode(data.Siw.about));
+      $('#aboutS').append(document.createTextNode(data.Steffen.about));
+      $('#aboutP').append(document.createTextNode(data.Petter.about));
     }
   });
 });
+function date(birthdate){
+  var dato = birthdate.split('-');
+  return moment(dato, 'DDMMYYYY').locale('nb').format('LL')+" ("+age(dato)+")";
+}
+function age(date2){
+    //var date2 = String(date1[0]+date1[1]+date1[2]);
+    var age = moment().diff(moment(date2, 'DDMMYYYY'), 'years');
+    return age+" år";
+}

@@ -1,0 +1,17 @@
+#username {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 20%;
+  font-size: 20px;
+}
+#password {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 20%;
+  font-size: 20px;
+}
+#button {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 25px;
+}

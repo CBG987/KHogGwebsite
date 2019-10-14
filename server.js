@@ -20,10 +20,19 @@ con.connect(function(err){
 	con.query('SELECT * FROM kvaalhogg.komite', function(err, result, fields){
 		if(err) throw err;
 		object1 = {name: result[0].name, birthdate: result[0].birthdate,
-								address: result[0].address, about: result[0].about};
+				address: result[0].address, about: result[0].about, imag: result[0].image};
 		object2 = {name: result[1].name, birthdate: result[1].birthdate,
 								address: result[1].address, about: result[1].about};
-		fakedatabase = {'Christian': object1, 'Blinge': object2};
+		object3 = {name: result[2].name, birthdate: result[2].birthdate,
+								address: result[2].address, about: result[2].about};
+		object4 = {name: result[3].name, birthdate: result[3].birthdate,
+								address: result[3].address, about: result[3].about};
+		object5 = {name: result[4].name, birthdate: result[4].birthdate,
+								address: result[4].address, about: result[4].about};
+		object6 = {name: result[5].name, birthdate: result[5].birthdate,
+								address: result[5].address, about: result[5].about};
+		fakedatabase = {'Christian': object1, 'Blinge': object2, 'Veronica': object3,
+										'Siw': object4, 'Steffen': object5, 'Petter': object6};
 		//console.log(database);
 	});
 });
@@ -55,6 +64,31 @@ app.get('/pictures', function(req, res){
 app.get('/videoer', function(req, res){
   res.sendFile(path.join(__dirname + '/public/videoer.html'));
 });
+app.get('/login', function(req, res){
+  res.sendFile(path.join(__dirname + '/public/login.html'));
+});
+app.get('/changeinfo', function(req, res){
+  res.sendFile(path.join(__dirname + '/public/changeinfo.html'));
+});
+/*app.post('/auth', function(request, response) {
+	var username = request.body.username;
+	var password = request.body.password;
+	if (username && password) {
+		con.query('SELECT * FROM kvaalhogg.komite WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
+			if (results.length > 0) {
+				request.session.loggedin = true;
+				request.session.username = username;
+				response.redirect('/home');
+			} else {
+				response.send('Incorrect Username and/or Password!');
+			}
+			response.end();
+		});
+	} else {
+		response.send('Please enter Username and Password!');
+		response.end();
+	}
+});*/
 var server = app.listen(3000, () => {
   console.log('Server is running on PORT:',3000);
 });

@@ -1,10 +1,10 @@
 .main {
-  padding-top: 20px;
   display: grid;
   grid-template-areas: 'blinge christian' 'veronica siw' 'steffen petter';
+  grid-gap: 40px;
 }
 .one {
-  text-align: left;
+  text-align: right;
   grid-area: blinge;
 }
 .two {
@@ -12,7 +12,7 @@
   grid-area: christian;
 }
 .three {
-  text-align: left;
+  text-align: right;
   grid-area: veronica;
 }
 .four {
@@ -20,28 +20,17 @@
   grid-area: siw;
 }
 .five {
-  text-align: left;
+  text-align: right;
   grid-area: steffen;
 }
 .six {
   text-align: left;
   grid-area: petter;
 }
-
 .imag{
-  grid-area: imag;
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
 }
-.name{
-  grid-area: rest;
-}
-.birthdate{
-  grid-area: rest;
-}
-.address{
-  grid-area: rest;
-}
-.about{
-  grid-area: rest;
+.tags {
+  font-weight: bold;
 }

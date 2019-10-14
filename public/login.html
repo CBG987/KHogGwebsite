@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="CSS/styles1.css">
+    <link rel="stylesheet" type="text/css" href="CSS/loginstyle.css">
     <script type = "text/javascript" src = "Javascript/indexscript.js" ></script>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <title>Kvål Hinder og Galskap</title>
@@ -38,8 +39,15 @@
         </div>
       </div>
       <div class="main">
-        <h1>Bilder</h1>
-
+        <div class="loginsys">
+          <h1>Administrasjon</h1>
+          <h3>Logg inn for å endre informasjon</h3>
+          <form action="/auth" method="get">
+            <input type="text" id="username" placeholder="Brukernavn"><br>
+            <input type="password" id="password" placeholder="Passord">
+            <br><button type="button" id="button">Logg inn</button>
+          </form>
+        </div>
       </div>
     </div>
   </body>
