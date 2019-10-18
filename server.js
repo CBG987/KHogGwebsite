@@ -13,33 +13,52 @@ var con = mysql.createConnection({
 	password : 'BonesGravseth2',
 	database : 'kvaalhogg'
 });
-var object1; var object2; var fakedatabase;
+app.use(session({
+	secret: 'secret',
+	resave: true,
+	saveUninitialized: true
+}));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(express.static(__dirname+'/public'));
+
 con.connect(function(err){
 	if(err) throw err;
 	console.log("Connected!");
+	getInfo();
+});
+var fakedatabase; var fakeuserbase;
+function getInfo(){
 	con.query('SELECT * FROM kvaalhogg.komite', function(err, result, fields){
 		if(err) throw err;
-		object1 = {name: result[0].name, birthdate: result[0].birthdate,
+		object1 = {id: result[0].id, name: result[0].name, birthdate: result[0].birthdate,
 				address: result[0].address, about: result[0].about, imag: result[0].image};
-		object2 = {name: result[1].name, birthdate: result[1].birthdate,
+		object2 = {id: result[1].id, name: result[1].name, birthdate: result[1].birthdate,
 								address: result[1].address, about: result[1].about};
-		object3 = {name: result[2].name, birthdate: result[2].birthdate,
+		object3 = {id: result[2].id, name: result[2].name, birthdate: result[2].birthdate,
 								address: result[2].address, about: result[2].about};
-		object4 = {name: result[3].name, birthdate: result[3].birthdate,
+		object4 = {id: result[3].id, name: result[3].name, birthdate: result[3].birthdate,
 								address: result[3].address, about: result[3].about};
-		object5 = {name: result[4].name, birthdate: result[4].birthdate,
+		object5 = {id: result[4].id, name: result[4].name, birthdate: result[4].birthdate,
 								address: result[4].address, about: result[4].about};
-		object6 = {name: result[5].name, birthdate: result[5].birthdate,
+		object6 = {id: result[5].id, name: result[5].name, birthdate: result[5].birthdate,
 								address: result[5].address, about: result[5].about};
 		fakedatabase = {'Christian': object1, 'Blinge': object2, 'Veronica': object3,
 										'Siw': object4, 'Steffen': object5, 'Petter': object6};
-		//console.log(database);
 	});
-});
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(__dirname+'/public'));
-
+	con.query('SELECT * FROM kvaalhogg.users', function(err, result, fields){
+		if(err) throw err;
+		user1 = {id: result[0].id, username: result[0].username, password: result[0].password, eaddress: result[0].email};
+		user2 = {id: result[1].id, username: result[1].username, password: result[1].password, eaddress: result[1].email};
+		user3 = {id: result[2].id, username: result[2].username, password: result[2].password, eaddress: result[2].email};
+		user4 = {id: result[3].id, username: result[3].username, password: result[3].password, eaddress: result[3].email};
+		user5 = {id: result[4].id, username: result[4].username, password: result[4].password, eaddress: result[4].email};
+		user6 = {id: result[5].id, username: result[5].username, password: result[5].password, eaddress: result[5].email};
+		fakeuserbase = {'ChristianUser': user1, 'BlingeUser': user2, 'VeronicaUser': user3,
+										'SiwUser': user4, 'SteffenUser': user5, 'PetterUser': user6};
+	});
+}
+var databases;
 app.get('/', function(req, res){
   res.sendFile(path.join(__dirname + '/public/main.html'));
 });
@@ -65,38 +84,72 @@ app.get('/videoer', function(req, res){
   res.sendFile(path.join(__dirname + '/public/videoer.html'));
 });
 app.get('/login', function(req, res){
-  res.sendFile(path.join(__dirname + '/public/login.html'));
+	if (req.session.loggedin) {
+		res.redirect('/changeinfo');
+	}else{
+		res.sendFile(path.join(__dirname + '/public/login.html'));
+	}
 });
-app.get('/changeinfo', function(req, res){
-  res.sendFile(path.join(__dirname + '/public/changeinfo.html'));
-});
-/*app.post('/auth', function(request, response) {
-	var username = request.body.username;
-	var password = request.body.password;
+app.post('/login', (req, res) => {
+	var username = req.body.username;
+	var password = req.body.password;
 	if (username && password) {
-		con.query('SELECT * FROM kvaalhogg.komite WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
+		con.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
 			if (results.length > 0) {
-				request.session.loggedin = true;
-				request.session.username = username;
-				response.redirect('/home');
+				req.session.loggedin = true;
+				req.session.username = username;
+				res.redirect('/changeinfo');
 			} else {
-				response.send('Incorrect Username and/or Password!');
+				var res1 = {"Response": 'Incorrect Username and/or Password!'};
+				var res2 = 'Incorrect Username and/or Password!';
+				//res.sendFile(path.join(__dirname + '/public/login.html'), res1);
+				res.redirect('/login');
 			}
-			response.end();
+			//res.end();
 		});
 	} else {
-		response.send('Please enter Username and Password!');
-		response.end();
+		res.json('Please enter Username and Password!');
+		//res.end();
 	}
+});
+app.get('/changeinfo', function(req, res){
+	if (req.session.loggedin) {
+		res.sendFile(path.join(__dirname + '/public/changeinfo.html'));
+	} else {
+		//res.send('Please login to view this page!');
+		res.redirect('/login');
+	}
+});
+//Set infomation in changeinfo
+app.post('/changeinfo', function(req, res){
+	databases = {"Userbase": fakeuserbase, "Aboutbase": fakedatabase};
+	res.json(databases);
+});
+/*app.post('/changepassword', function(req, res){
+
+	res.redirect('/changeinfo')
 });*/
+app.post('/saveUser', function(req, res){
+	var data = req.body.melding;
+	console.log(data);
+	con.query('UPDATE kvaalhogg.komite SET name = "'+data.name+'", birthdate = "'+data.birthdate+'", address = "'+data.address+'", about = "'+data.about+'" WHERE (id = "'+data.id+'")');
+	con.query('UPDATE kvaalhogg.users SET email = "'+data.email+'" WHERE (id = "'+data.id+'")');
+	getInfo();
+	databases = {"Userbase": fakeuserbase, "Aboutbase": fakedatabase};
+	res.redirect('/changeinfo')
+});
+//logout
+app.get('/logout', function(req, res) {
+	req.session.destroy();
+	res.redirect('/login');
+});
+
 var server = app.listen(3000, () => {
   console.log('Server is running on PORT:',3000);
 });
 
 app.post('/videoes-add', (req, res) => {
   console.log(addVideo(req));
-  //res.send('<p>'+req.body.url+'</p>');
-  //res.redirect('/otherthings');
 });
 function sendvideo(url){
   var a1 = document.createElement("P");

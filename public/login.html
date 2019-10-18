@@ -42,10 +42,11 @@
         <div class="loginsys">
           <h1>Administrasjon</h1>
           <h3>Logg inn for å endre informasjon</h3>
-          <form action="/auth" method="get">
-            <input type="text" id="username" placeholder="Brukernavn"><br>
-            <input type="password" id="password" placeholder="Passord">
-            <br><button type="button" id="button">Logg inn</button>
+          <h5 id="wrong"></h5>
+          <form action="/login" method="post">
+            <input type="text" name="username" id="username" placeholder="Brukernavn" required><br>
+            <input type="password" name="password" id="password" placeholder="Passord" required>
+            <br><button type="submit" id="button">Logg inn</button>
           </form>
         </div>
       </div>

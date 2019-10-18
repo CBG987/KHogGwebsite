@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="CSS/styles1.css">
+    <link rel="stylesheet" type="text/css" href="CSS/changeinfostyle.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script type = "text/javascript" src = "Javascript/changeinfoscript.js" ></script>
+    <title>Kvål Hinder og Galskap - Administrativ side</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="grid-container">
+        <div class="item3">
+          <div class="dropdown"><button class="dropbtn"><a href="/">Tilbake</a></button></div>
+          <div class="dropdown"><button class="dropbtn"><a href="/logout">Logg ut</a></button></div>
+        </div>
+      </div>
+      <div class="main">
+        <h1>Administrativ side</h1>
+        <div class="box">
+          <div class="changeuserpassword">
+            <h3>Endre passord</h3>
+            <h5>Endre passordet ved å først skrive inn brukernavnet, så skrive inn det gamle passordet,</h5>
+            <h5>så skrive inn det nye passordet og så det nye passordet på nytt :D</h5>
+            <p>Brukernavn: </p>
+            <input class="pass" type="text" name="username" placeholder="Brukernavn">
+            <p>Passord: </p>
+            <input class="pass" type="password" name="oldpassword" placeholder="Skriv inn det gamle passordet"><br>
+            <input class="pass" type="password" name="password" placeholder="Skriv inn nytt passord"><br>
+            <input class="pass" type="password" name="password-retype" placeholder="Skriv inn passordet på nytt"><br>
+            <input class="pass" type="button" value="Lagre" onclick="saveUserPassword()">
+          </div>
+          <div class="changeuser">
+            <h5>Endre bruker</h5>
+            <button type="button" id="Christian" onclick="clickedC()">Christian</button>
+            <button type="button" id="Blinge" onclick="clickedB()">Blinge</button>
+            <button type="button" id="Veronica" onclick="clickedV()">Veronica</button>
+            <button type="button" id="Siw" onclick="clickedSiw()">Siw</button>
+            <button type="button" id="Steffen" onclick="clickedS()">Steffen</button>
+            <button type="button" id="Petter" onclick="clickedP()">Petter</button>
+            <p>Navn: </p>
+            <input type="text" id="navn">
+            <p>E-postadresse: </p>
+            <input type="text" id="email">
+            <p>Fødselsdato: </p>
+            <select name="da" id="date"></select>
+            <select name="mo" id="month"></select>
+            <select name="ye" id="year"></select>
+            <p>Adresse: </p>
+            <input type="text" id="address">
+            <p>Om: </p>
+            <textarea id="about" rows="8" cols="80"></textarea><br>
+            <input class="pass" type="submit" value="Lagre" onclick="saveUserButton()">
+          </div>
+          <p>------------------------------------------------------</p>
+          <div class="changepastevents">
+
+          </div>
+          <p>------------------------------------------------------</p>
+          <div class="changeupcomingevents">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
