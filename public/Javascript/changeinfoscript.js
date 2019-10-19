@@ -19,10 +19,12 @@ $(document).ready(() => {
       console.log(data);
       datas = data;
       printDay(date); printMonth(month); printYear(range(yearRangeStart, yearRangeStop));
+      
     }
   });
 });
 function saveUserPassword(){
+  var username = document.getElementById('');
   //$.post('/saveUser', {melding: data});
 }
 function saveUserButton(){

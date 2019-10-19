@@ -2,30 +2,37 @@
   display: grid;
   grid-template-areas: 'blinge christian' 'veronica siw' 'steffen petter';
   grid-gap: 40px;
+  grid-template-columns: repeat(6, 1fr);
 }
 .one {
   text-align: right;
   grid-area: blinge;
+  grid-column: 3;
 }
 .two {
   text-align: left;
   grid-area: christian;
+  grid-column: 4;
 }
 .three {
   text-align: right;
   grid-area: veronica;
+  grid-column: 3;
 }
 .four {
   text-align: left;
   grid-area: siw;
+  grid-column: 4;
 }
 .five {
   text-align: right;
   grid-area: steffen;
+  grid-column: 3;
 }
 .six {
   text-align: left;
   grid-area: petter;
+  grid-column: 4;
 }
 .imag{
   width: 200px;

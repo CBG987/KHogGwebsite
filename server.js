@@ -7,12 +7,32 @@ var mysql = require('mysql');
 var session = require('express-session');
 var fs = require('fs');
 
-var con = mysql.createConnection({
-	host     : 'localhost',
-	user     : 'kingkong',
-	password : 'BonesGravseth2',
-	database : 'kvaalhogg'
-});
+var con;
+function handleDisconnect(){
+	con = mysql.createConnection({
+		host     : 'localhost',
+		user     : 'kingkong',
+		password : 'BonesGravseth2',
+		database : 'kvaalhogg'
+	});
+	con.connect(function(err){
+		if(err){
+				console.log('error when connecting to db:', err);
+				setTimeout(handleDisconnect, 2000);
+		}
+		console.log("Connected!");
+		getInfo();
+	});
+	con.on('error', function(err) {
+    console.log('db error', err);
+    if(err.code === 'PROTOCOL_CONNECTION_LOST') {
+      handleDisconnect();
+    } else {
+      throw err;
+    }
+  });
+}
+handleDisconnect();
 app.use(session({
 	secret: 'secret',
 	resave: true,
@@ -22,11 +42,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(__dirname+'/public'));
 
-con.connect(function(err){
-	if(err) throw err;
-	console.log("Connected!");
-	getInfo();
-});
+
 var fakedatabase; var fakeuserbase;
 function getInfo(){
 	con.query('SELECT * FROM kvaalhogg.komite', function(err, result, fields){

@@ -24,11 +24,11 @@
             <h5>Endre passordet ved å først skrive inn brukernavnet, så skrive inn det gamle passordet,</h5>
             <h5>så skrive inn det nye passordet og så det nye passordet på nytt :D</h5>
             <p>Brukernavn: </p>
-            <input class="pass" type="text" name="username" placeholder="Brukernavn">
+            <input class="pass" id="username" type="text" placeholder="Brukernavn">
             <p>Passord: </p>
-            <input class="pass" type="password" name="oldpassword" placeholder="Skriv inn det gamle passordet"><br>
-            <input class="pass" type="password" name="password" placeholder="Skriv inn nytt passord"><br>
-            <input class="pass" type="password" name="password-retype" placeholder="Skriv inn passordet på nytt"><br>
+            <input class="pass" id="oldpassword" type="password" placeholder="Skriv inn det gamle passordet"><br>
+            <input class="pass" id="password" type="password" placeholder="Skriv inn nytt passord"><br>
+            <input class="pass" id="password-retype" type="password" name="password-retype" placeholder="Skriv inn passordet på nytt"><br>
             <input class="pass" type="button" value="Lagre" onclick="saveUserPassword()">
           </div>
           <div class="changeuser">
@@ -53,13 +53,27 @@
             <textarea id="about" rows="8" cols="80"></textarea><br>
             <input class="pass" type="submit" value="Lagre" onclick="saveUserButton()">
           </div>
-          <p>------------------------------------------------------</p>
           <div class="changepastevents">
-
+            <h3>Kvål Hinder og Galskap Vol.1</h3>
+            <p>Tittel: </p>
+            <input type="text" id="titleVol1"><br>
+            <p>Tekst: </p>
+            <textarea rows="8" cols="80" id="textVol1"></textarea><br>
+            <input class="pass" type="submit" value="Lagre" onclick="">
+            <h3>Kvål Hinder og Galskap Vol.1</h3>
+            <p>Tittel: </p>
+            <input type="text" id="titleVol2"><br>
+            <p>Tekst: </p>
+            <textarea rows="8" cols="80" id="textVol2"></textarea><br>
+            <input class="pass" type="submit" value="Lagre" onclick="">
           </div>
-          <p>------------------------------------------------------</p>
           <div class="changeupcomingevents">
-
+            <h3>Kommende arrangement</h3>
+            <p>Tittel: </p>
+            <input type="text" id="titleUpcomming"><br>
+            <p>Tekst: </p>
+            <textarea rows="8" cols="80" id="textUpcomming"></textarea><br>
+            <input class="pass" type="submit" value="Lagre" onclick="">
           </div>
         </div>
       </div>
