@@ -162,8 +162,8 @@ app.get('/logout', function(req, res) {
 	res.redirect('/login');
 });
 
-var server = app.listen(3000, () => {
-  console.log('Server is running on PORT:',3000);
+var server = app.listen(80, () => {
+  console.log('Server is running on PORT:',80);
 });
 
 app.post('/videoes-add', (req, res) => {
