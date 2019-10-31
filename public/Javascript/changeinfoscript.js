@@ -1,3 +1,4 @@
+//var jsonFind = require('json-find');
 var navn = document.getElementById('navn');
 var email = document.getElementById('email');
 var fødselsdato = document.getElementById('birthdate');
@@ -19,14 +20,35 @@ $(document).ready(() => {
       console.log(data);
       datas = data;
       printDay(date); printMonth(month); printYear(range(yearRangeStart, yearRangeStop));
-      
     }
   });
 });
+/*String.prototype.capitalize = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+}*/
 function saveUserPassword(){
-  var username = document.getElementById('');
-  //$.post('/saveUser', {melding: data});
+  var userBase = datas.Userbase;
+  var username = document.getElementById('username').value;
+  var user = username[0].toUpperCase()+ username.slice(1)+"User";
+  var oldPassword = document.getElementById('oldpassword');
+  var newPassword = document.getElementById('passord');
+  var newPasswordagian = document.getElementById('passord');
+  /*for(var i = 0; i<datas[0].len; i++){
+    if(datas[0][i][username] == username){
+      console.log("fant bruker");
+    }
+  }*/
+  //var doc = jsonFind(datas);
+  //console.log(doc.checkKey('Userbase'));
+  console.log(username);
+  console.log(user);
+  if(userBase.list[user][username] == username){
+    console.log("fant bruker");
+  }
+
+  //$.post('/saveUserPassword', {melding: data});
 }
+//Change user
 function saveUserButton(){
   var name = document.getElementById('navn');
   var email = document.getElementById('email');

@@ -141,10 +141,12 @@ app.post('/changeinfo', function(req, res){
 	databases = {"Userbase": fakeuserbase, "Aboutbase": fakedatabase};
 	res.json(databases);
 });
+//Updates password
 /*app.post('/changepassword', function(req, res){
 
 	res.redirect('/changeinfo')
 });*/
+//Updates user
 app.post('/saveUser', function(req, res){
 	var data = req.body.melding;
 	console.log(data);
