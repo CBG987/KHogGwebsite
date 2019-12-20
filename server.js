@@ -1,11 +1,17 @@
-var express = require('express');
 var bodyParser = require('body-parser');
+
+var express = require('express');
 var app = express();
-var http = require('http');
+var http = require('http').createServer(app);
 var path = require('path');
 var mysql = require('mysql');
 var session = require('express-session');
 var fs = require('fs');
+var util = require('util');
+var io = require('socket.io').listen(http);
+var Stopwatch = require('timer-stopwatch');
+var stopwatch = new Stopwatch();
+
 
 var con;
 function handleDisconnect(){
@@ -93,11 +99,43 @@ app.get('/about', function(req, res){
 app.post('/about', (req, res) => {
   res.json(fakedatabase);
 });
+var i = 0;
+io.on('connection', function(socket){
+  console.log('a user connected');
+	stopwatch.onTime(function(t) {
+		var times = msToTime(t.ms);
+		io.emit('timer', times);
+	});
+	socket.on('message', (message) => {
+		console.log(message);
+		//io.emit('message', message)
+	});
+	socket.on('result', (message) => {
+		console.log(message);
+		io.emit('resultToWeb', message);
+	});
+	socket.on('join', function(joiner) {
+		console.log("The joiner is: "+joiner);
+	});
+	socket.on('startdetect', function(start) {
+		console.log(start);
+		io.emit('start','Start');
+		stopwatch.start();
+	});
+	socket.on('disconnect', function() {
+		console.log("User disconnected");
+	});
+});
+
+
 app.get('/pictures', function(req, res){
   res.sendFile(path.join(__dirname + '/public/pictures.html'));
 });
 app.get('/videoer', function(req, res){
   res.sendFile(path.join(__dirname + '/public/videoer.html'));
+});
+app.get('/liveresults', function(req, res){
+	res.sendFile(path.join(__dirname + '/public/resultservice.html'));
 });
 app.get('/login', function(req, res){
 	if (req.session.loggedin) {
@@ -162,7 +200,7 @@ app.get('/logout', function(req, res) {
 	res.redirect('/login');
 });
 
-var server = app.listen(3000, () => {
+var server = http.listen(3000, () => {
   console.log('Server is running on PORT:',3000);
 });
 
@@ -183,4 +221,16 @@ function addVideo(req){
   var three = (two[0]+two[1]).split('/');
   var newurl = three[0]+"//"+three[1]+three[2]+"/embed/"+three[3];
   return newurl;
+}
+function msToTime(duration) {
+  var milliseconds = parseInt((duration % 1000) / 100),
+    seconds = Math.floor((duration / 1000) % 60),
+    minutes = Math.floor((duration / (1000 * 60)) % 60),
+    hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+  hours = (hours < 10) ? "0" + hours : hours;
+  minutes = (minutes < 10) ? "0" + minutes : minutes;
+  seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+  return hours + ":" + minutes + ":" + seconds;
 }
