@@ -100,18 +100,23 @@ app.post('/about', (req, res) => {
   res.json(fakedatabase);
 });
 var i = 0;
+var res = [];
 io.on('connection', function(socket){
   console.log('a user connected');
 	stopwatch.onTime(function(t) {
 		var times = msToTime(t.ms);
 		io.emit('timer', times);
 	});
+	for (var i = 0; i < res.length; i++) {
+		io.emit('resultToWeb', res[i]);
+	}
 	socket.on('message', (message) => {
 		console.log(message);
 		//io.emit('message', message)
 	});
 	socket.on('result', (message) => {
 		console.log(message);
+		res.push(message);
 		io.emit('resultToWeb', message);
 	});
 	socket.on('join', function(joiner) {

@@ -12,7 +12,7 @@ $(function () {
     var str = msg;
     var newMelding = msg.split('//');
     console.log(newMelding[0]);
-
+    console.log(newMelding[4]);
     var t = document.createElement("tr");
     var t1 = document.createElement("th");
     var t2 = document.createElement("th");
@@ -30,9 +30,9 @@ $(function () {
         nyTid = tiden[0]+":"+tiden[1];
       }
       if (tid2<10) {
-        nyTid = nytid+":0"+tiden[2];
+        nyTid = tiden[1]+":0"+tiden[2];
       }else {
-        nyTid = nyTid+":"+tiden[2];
+        nyTid = tiden[1]+":"+tiden[2];
       }
     }else if (tiden.length == 2) {
       var tid = parseInt(tiden[1]);
@@ -47,7 +47,8 @@ $(function () {
     var n1 = document.createTextNode(newMelding[1]);
     var n2 = document.createTextNode(newMelding[0]);
     var n3 = document.createTextNode("--");
-    var n4 = document.createTextNode(nyTid);
+    //var n4 = document.createTextNode(nyTid);
+    var n4 = document.createTextNode(newMelding[4]);
 
     t1.appendChild(n1);
     t2.appendChild(n2);
