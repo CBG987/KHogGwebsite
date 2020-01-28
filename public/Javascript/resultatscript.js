@@ -1,7 +1,7 @@
 
 $(document).ready(() => {
 var leggTil = document.getElementById("adder");
-//Innhenting skal skje her
+var index = 0;
 $(function () {
   var socket = io();
   socket.on('timer', function(msg){
@@ -18,8 +18,15 @@ $(function () {
     var t2 = document.createElement("th");
     var t3 = document.createElement("th");
     var t4 = document.createElement("th");
+    if (index == 1) {
+      t.style.background = "#ffffff";
+      index = 0;
+    }else if (index == 0) {
+      t.style.background = "#cccccc";
+      index = 1;
+    }
 
-    var tiden = newMelding[4].split(":");
+    /*var tiden = newMelding[4].split(":");
     var nyTid = 0;
     if (tiden.length > 2){
       var tid1 = parseInt(tiden[1]);
@@ -41,7 +48,7 @@ $(function () {
       }else {
         nyTid = newMelding[4];
       }
-    }
+    }*/
 
 
     var n1 = document.createTextNode(newMelding[1]);

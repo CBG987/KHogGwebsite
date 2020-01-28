@@ -108,7 +108,7 @@ io.on('connection', function(socket){
 		io.emit('timer', times);
 	});
 	for (var i = 0; i < res.length; i++) {
-		io.emit('resultToWeb', res[i]);
+		socket.emit('resultToWeb', res[i]);
 	}
 	socket.on('message', (message) => {
 		console.log(message);
@@ -131,6 +131,10 @@ io.on('connection', function(socket){
 		console.log("User disconnected");
 	});
 });
+app.post('/paameldPerson', (req, res) => {
+  var theLooper = req.body.melding;
+	console.log(theLooper);
+});
 
 
 app.get('/pictures', function(req, res){
@@ -138,6 +142,9 @@ app.get('/pictures', function(req, res){
 });
 app.get('/videoer', function(req, res){
   res.sendFile(path.join(__dirname + '/public/videoer.html'));
+});
+app.get('/paamelding', function(req, res){
+	res.sendFile(path.join(__dirname + '/public/paamelding.html'));
 });
 app.get('/liveresults', function(req, res){
 	res.sendFile(path.join(__dirname + '/public/resultservice.html'));

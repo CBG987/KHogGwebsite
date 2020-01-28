@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="CSS/styles1.css">
+    <link rel="stylesheet" type="text/css" href="CSS/paameldingsstyle.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script type = "text/javascript" src = "Javascript/paameldingscript.js"></script>
+    <!--<script type = "text/javascript" src = "Javascript/indexscript.js"></script>-->
+    <title>Kvål Hinder og Galskap</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="grid-container">
+        <div class="item2">
+          <h2>Kvål Hinder og Galskap - Påmelding</h2>
+        </div>
+        <div class="item3">
+          <div class="dropdown"><button class="dropbtn"><a href="/liveresults">Liveresultater</a></button></div>
+          <div class="dropdown"><button class="dropbtn"><a href="https://www.kvalhinderoggalskap.no/">Tilbake til Kvål Hinder og Galskap hjemmeside</a></button></div>
+        </div>
+      </div>
+      <div class="main">
+        <p>Påmelding til Kvål Hinder og Galskap vol. 4</p>
+        <br>
+        <div id="info">
+          <p id="warn"></p>
+          <input type="text" name="fname" id="fornavn" placeholder="Fornavn"><br><br>
+          <input type="text" name="lname" id="etternavn" placeholder="Etternavn"><br><br>
+          <!--<input type="text" name="email">-->
+          <select name="klasse" id="hvilkenKlasse">
+            <option value="11-">11 år eller mindre</option>
+            <option value="12-15">12-15 år</option>
+            <option value="16-20">16-20 år</option>
+            <option value="21-25">21-25 år</option>
+            <option value="26-30">26-30 år</option>
+            <option value="31-35">31-35 år</option>
+            <option value="36-40">36-40 år</option>
+            <option value="41-45">41-45 år</option>
+            <option value="46-50">46-50 år</option>
+            <option value="51-55">51-55 år</option>
+            <option value="56-60">56-60 år</option>
+            <option value="61+">61 år eller eldre</option>
+          </select><br><br>
+        </div>
+        <div id="something">
+          <div id="myProgress">
+            <div id="myBar"></div>
+          </div>
+        </div>
+        <br>
+        <input type="submit" value="Meld på" onclick="addPerson()">
+      </div>
+    </div>
+  </body>
+</html>
