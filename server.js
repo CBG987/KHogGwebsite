@@ -32,6 +32,7 @@ function handleDisconnect(){
 	con.on('error', function(err) {
     console.log('db error', err);
     if(err.code === 'PROTOCOL_CONNECTION_LOST') {
+
       handleDisconnect();
     } else {
       throw err;
@@ -49,6 +50,148 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname+'/public'));
 
 
+//Resultatservice
+var i = 0;
+var resultat = [];
+io.on('connection', function(socket){
+  console.log('a user connected');
+	stopwatch.onTime(function(t) {
+		var times = msToTime(t.ms);
+		io.emit('timer', times);
+	});
+	for (var i = 0; i < resultat.length; i++) {
+		socket.emit('resultToWeb', resultat[i]);
+	}
+	socket.on('message', (message) => {
+		console.log(message);
+		//io.emit('message', message)
+	});
+	socket.on('result', (message) => {
+		console.log(message);
+		resultat.push(message);
+		io.emit('resultToWeb', message);
+	});
+	socket.on('join', function(joiner) {
+		console.log("The joiner is: "+joiner);
+	});
+	socket.on('startdetect', function(start) {
+		console.log(start);
+		io.emit('start','Start');
+		stopwatch.start();
+	});
+	socket.on('disconnect', function() {
+		console.log("User disconnected");
+	});
+	//Her kommer serverstyring
+	//Sletter og lager tabeller
+	/*socket.on('delAndCreateTable', function(){
+
+	});
+	//resetter klokken
+	socket.on('resetClock', function(){
+		stopwatch.stop();
+		stopwatch.reset();
+	});*/
+});
+//Påmeldingside for personer
+app.get('/paamelding', function(req, res){
+	res.sendFile(path.join(__dirname + '/public/paamelding.html'));
+});
+//Se liveresultater
+app.get('/liveresults', function(req, res){
+	res.sendFile(path.join(__dirname + '/public/resultservice.html'));
+});
+//Kontrollering av systemer
+app.get('/mastercontrol', function(req, res){
+  res.sendFile(path.join(__dirname + '/public/mastercontrol.html'));
+});
+//Legge inn påmelding i databasen
+app.post('/paameldPerson', (req, res) => {
+  var theLooper = req.body.melding;
+	console.log(theLooper);
+	var fornavn = theLooper.forn; var etternavn = theLooper.ettern;
+	var email = theLooper.klassen ; var starttid = 0; var startnummer = velgStartnummer();
+	con.query('SELECT * FROM kvaalhogg.lopet', function(err, result, fields){
+		if(err) throw err;
+		starttid = result.length*15+15;
+		console.log(result.length);
+	});
+	setTimeout(function(){
+		con.query('INSERT INTO kvaalhogg.lopet (navn, email, startnummer, starttid) VALUES("'+fornavn+" "+etternavn+'","'+email+'","'+startnummer+'","'+starttid+'")');
+	}, 250);
+});
+//Mulighet for nedlastning av deltakere til excel fil
+app.post('/exceldownload', (req, res) => {
+	con.query('SELECT * FROM kvaalhogg.lopet', function(err, result, fields){
+		if (err) throw err;
+		var item = {melding: [{startnr: "", navn: "", klasse: "", starttid: ""}]};
+		for (var i = 0; i < result.length; i++) {
+			var startnummer = result[i].startnummer;
+			var navn = result[i].navn;
+			var klasse = result[i].email;
+			var starttid = result[i].starttid;
+			var tekst = {startnr: startnummer, navn: navn, klasse: klasse, starttid: starttid};
+			item["melding"].push(tekst);
+		}
+		console.log(item);
+		res.json(item);
+	});
+});
+app.post('/deleteDBTable', (req, res) => {
+	con.query('drop table kvaalhogg.lopet', function(err, result, fields){
+		if(err) console.log("Denne eksisterer ikke");
+	});
+});
+app.post('/createDBTable', (req, res) => {
+	con.query('CREATE TABLE kvaalhogg.lopet (id int NOT NULL AUTO_INCREMENT, navn varchar(50), email varchar(50), startnummer int(100), starttid varchar(20), PRIMARY KEY(id))', function(err, result, fields){
+		if(err) console.log("Denne er her");
+	});
+});
+app.post('/stopServerClock', (req, res) => {
+	stopwatch.stop();
+});
+app.post('/resetServerClock', (req, res) => {
+	stopwatch.reset();
+});
+app.post('/cleanResults', (req, res) => {
+	resultat = [];
+	res.redirect(req.get('referer'));
+	//res.json({melding: "HeiHei"})
+});
+
+
+//"/action_page.php"
+/*app.post('/action_page', (req, res) => {
+  console.log(req.body.melding);
+});*/
+
+
+
+
+function msToTime(duration) {
+  var milliseconds = parseInt((duration % 1000) / 100),
+    seconds = Math.floor((duration / 1000) % 60),
+    minutes = Math.floor((duration / (1000 * 60)) % 60),
+    hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+  hours = (hours < 10) ? "0" + hours : hours;
+  minutes = (minutes < 10) ? "0" + minutes : minutes;
+  seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+  return hours + ":" + minutes + ":" + seconds;
+}
+//Legg inn tilgjenlige startnummer i denne listen
+var numberArray = [55,56,57,58,59];
+
+function velgStartnummer(){
+	var randomNumber = Math.floor(Math.random()*numberArray.length);
+	var item = numberArray[randomNumber];
+	numberArray.splice(randomNumber, 1);
+	return item;
+}
+
+/////////////////////////////////////////////
+//Testing of website
 var fakedatabase; var fakeuserbase;
 function getInfo(){
 	con.query('SELECT * FROM kvaalhogg.komite', function(err, result, fields){
@@ -99,56 +242,13 @@ app.get('/about', function(req, res){
 app.post('/about', (req, res) => {
   res.json(fakedatabase);
 });
-var i = 0;
-var res = [];
-io.on('connection', function(socket){
-  console.log('a user connected');
-	stopwatch.onTime(function(t) {
-		var times = msToTime(t.ms);
-		io.emit('timer', times);
-	});
-	for (var i = 0; i < res.length; i++) {
-		socket.emit('resultToWeb', res[i]);
-	}
-	socket.on('message', (message) => {
-		console.log(message);
-		//io.emit('message', message)
-	});
-	socket.on('result', (message) => {
-		console.log(message);
-		res.push(message);
-		io.emit('resultToWeb', message);
-	});
-	socket.on('join', function(joiner) {
-		console.log("The joiner is: "+joiner);
-	});
-	socket.on('startdetect', function(start) {
-		console.log(start);
-		io.emit('start','Start');
-		stopwatch.start();
-	});
-	socket.on('disconnect', function() {
-		console.log("User disconnected");
-	});
-});
-app.post('/paameldPerson', (req, res) => {
-  var theLooper = req.body.melding;
-	console.log(theLooper);
-});
-
-
 app.get('/pictures', function(req, res){
   res.sendFile(path.join(__dirname + '/public/pictures.html'));
 });
 app.get('/videoer', function(req, res){
   res.sendFile(path.join(__dirname + '/public/videoer.html'));
 });
-app.get('/paamelding', function(req, res){
-	res.sendFile(path.join(__dirname + '/public/paamelding.html'));
-});
-app.get('/liveresults', function(req, res){
-	res.sendFile(path.join(__dirname + '/public/resultservice.html'));
-});
+
 app.get('/login', function(req, res){
 	if (req.session.loggedin) {
 		res.redirect('/changeinfo');
@@ -233,16 +333,4 @@ function addVideo(req){
   var three = (two[0]+two[1]).split('/');
   var newurl = three[0]+"//"+three[1]+three[2]+"/embed/"+three[3];
   return newurl;
-}
-function msToTime(duration) {
-  var milliseconds = parseInt((duration % 1000) / 100),
-    seconds = Math.floor((duration / 1000) % 60),
-    minutes = Math.floor((duration / (1000 * 60)) % 60),
-    hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
-
-  hours = (hours < 10) ? "0" + hours : hours;
-  minutes = (minutes < 10) ? "0" + minutes : minutes;
-  seconds = (seconds < 10) ? "0" + seconds : seconds;
-
-  return hours + ":" + minutes + ":" + seconds;
 }

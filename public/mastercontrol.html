@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Master Control Board</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script type = "text/javascript" src = "Javascript/mastercontrolscript.js"></script>
+    <style>
+      .button {
+        padding: 15px 25px;
+        font-size: 24px;
+        text-align: center;
+        cursor: pointer;
+        outline: none;
+        color: #fff;
+        background-color: #4CAF50;
+        border: none;
+        border-radius: 50%;
+        box-shadow: 0 9px #999;
+      }
+
+      .button:hover {background-color: #3e8e41}
+
+      .button:active {
+        background-color: #3e8e41;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <th><h3>Slett databasetabell</h3><br><button class="button" onclick="deleteDBTable()"></button></th>
+        <th>|<br>|<br>|<br>|<br>|</th>
+        <th><h3>Lag databasetabell</h3><br><button class="button" onclick="makeDBTable()"></button></th>
+        <th>|<br>|<br>|<br>|<br>|</th>
+        <th><h3>Stopp serverklokke</h3><br><button class="button" onclick="stoppClock()"></button></th>
+        <th>|<br>|<br>|<br>|<br>|</th>
+        <th><h3>Reset serverklokke</h3><br><button class="button" onclick="resetClock()"></button></th>
+        <th>|<br>|<br>|<br>|<br>|</th>
+        <th><h3>Fjern deltakere<br>fra resultatliste</h3><button class="button" onclick="removePartisipants()"></button></th>
+      </tr>
+    </table>
+    <br><hr>
+
+  </body>
+</html>
